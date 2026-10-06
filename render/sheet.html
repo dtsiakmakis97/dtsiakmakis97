@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Profile asset sheet</title>
+<!--
+  Source sheet for every image in ../assets. Each asset is one fixed-size
+  element, captured by id with Playwright (element screenshot, omitBackground).
+  Everything is authored at 2x and shown at half size in the README.
+
+  Serve ~/Documents/Claude/Projects (not this repo) so the portfolio's fonts
+  and covers resolve; the Cabinet Grotesk files must not be copied in here
+  (ITF Free Font License forbids redistribution).
+
+  Tokens and type follow dt-portfolio/app/globals.css and lib/og/render.tsx.
+  field.jpg is a frame of the live hero's WebGL field (dtsiakmakis.dev).
+  Icons: simple-icons 16.34.0, Playwright from 12.4.0, LinkedIn from 10.4.0.
+-->
+<style>
+  @font-face { font-family: "Cabinet"; font-weight: 300; src: url("/dt-portfolio/assets/og/CabinetGrotesk-Light.otf"); }
+  @font-face { font-family: "Cabinet"; font-weight: 800; src: url("/dt-portfolio/assets/og/CabinetGrotesk-Extrabold.otf"); }
+  @font-face { font-family: "Plex Mono"; font-weight: 400; src: url("/dt-portfolio/assets/og/IBMPlexMono-Regular.ttf"); }
+
+  :root {
+    --canvas: #0b0b0c;
+    --raised: #141415;
+    --line: #2a2a2b;
+    --line-strong: #6b6964;
+    --ink: #f2f0ea;
+    --ink-3: #8c8a84;
+    --blue: #3b9dff;
+  }
+  html, body { margin: 0; background: transparent; }
+  body {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 40px; padding: 40px;
+    font-family: "Cabinet", sans-serif; color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  .mono {
+    font-family: "Plex Mono", monospace; text-transform: uppercase;
+    letter-spacing: 0.14em; font-feature-settings: "zero" 1;
+  }
+  .dt { font-weight: 800; letter-spacing: -0.02em; line-height: 1; }
+  .dt i { font-style: normal; color: var(--blue); }
+
+  /* ── Banner ───────────────────────────────────────────── */
+  #banner {
+    position: relative; width: 1600px; height: 600px; overflow: hidden;
+    background: var(--canvas); box-sizing: border-box; padding: 64px 80px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  #banner .field { position: absolute; left: 0; top: 0; width: 1610px; height: 604px; }
+  #banner > :not(.field) { position: relative; }
+  #banner .top { display: flex; justify-content: space-between; align-items: center; }
+  #banner .top .dt { font-size: 44px; }
+  #banner .top .mono { font-size: 22px; color: var(--ink); }
+  #banner .kicker { font-size: 22px; color: var(--ink-3); margin-bottom: 30px; }
+  #banner h1 {
+    margin: 0; font-size: 112px; line-height: 0.86; letter-spacing: -0.045em; font-weight: 800;
+  }
+  #banner h1 .whisper { display: block; font-weight: 300; }
+  #banner h1 .accent { color: var(--blue); }
+
+  /* ── Link pills (pill() in components/ui/pill.ts, at 2x) ── */
+  .pill {
+    display: inline-flex; align-items: center; gap: 16px; height: 80px; box-sizing: border-box;
+    padding: 0 44px; border-radius: 9999px; font-size: 24px;
+  }
+  .pill svg { width: 28px; height: 28px; fill: currentColor; flex: none; }
+  .pill .arrow { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2.4; }
+  .pill.blue { background: var(--blue); color: var(--canvas); }
+  /* ghost, filled with canvas so it reads on GitHub's light theme too */
+  .pill.ghost { background: var(--canvas); color: var(--ink); border: 2px solid var(--line-strong); }
+
+  /* ── Work thumbnails, 16:10 like the site's case media ── */
+  .cover { width: 1280px; height: 800px; overflow: hidden; background: var(--raised); position: relative; }
+  .cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .band-blue { background: var(--blue); color: var(--canvas); }
+  .note {
+    box-sizing: border-box; padding: 96px 104px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .note .statement { margin: 0; max-width: 14ch; font-size: 152px; line-height: 0.82; letter-spacing: -0.045em; font-weight: 800; }
+  .note .pill.ink { border: 2px solid var(--canvas); color: var(--canvas); align-self: flex-start; }
+  #work-more { background: var(--canvas); border: 2px solid var(--line); box-sizing: border-box; }
+  #work-more .dt { font-size: 260px; color: var(--ink); }
+  #work-more .mono { font-size: 28px; color: var(--ink-3); line-height: 1.6; }
+  #work-more .mono b { font-weight: 400; color: var(--blue); }
+
+  /* ── Stack band (components/skills/Skills.tsx, as a still) ── */
+  #stack { width: 1600px; box-sizing: border-box; padding: 72px 80px 88px; }
+  #stack .label { font-size: 24px; }
+  #stack h2 { margin: 28px 0 56px; font-size: 96px; line-height: 0.9; letter-spacing: -0.035em; font-weight: 800; }
+  #stack ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px 40px; }
+  #stack li { border-top: 2px solid var(--canvas); padding-top: 26px; display: flex; align-items: center; gap: 20px; font-size: 24px; }
+  #stack li svg { width: 44px; height: 44px; fill: var(--canvas); flex: none; }
+</style>
+</head>
+<body>
+
+<div id="banner">
+  <img class="field" src="field.jpg" alt="">
+  <div class="top">
+    <span class="dt">DT<i>.</i></span>
+    <span class="mono">dtsiakmakis.dev</span>
+  </div>
+  <div>
+    <p class="kicker mono">Dimitrios Tsiakmakis · Berlin · Open to roles &amp; freelance projects</p>
+    <h1><span class="whisper">I build web products end to end,</span> and the <span class="accent">AI systems</span> inside them.</h1>
+  </div>
+</div>
+
+<span id="link-portfolio" class="pill blue mono">Portfolio <svg class="arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+<span id="link-linkedin" class="pill ghost mono"><svg data-icon="linkedin"></svg>LinkedIn</span>
+<span id="link-resume" class="pill ghost mono"><svg viewBox="0 0 24 24"><path d="M6 2h8.5L20 7.5V22H6V2Zm8 1.5V8h4.5M8.5 12h9v1.6h-9V12Zm0 3.5h9v1.6h-9v-1.6Zm0 3.5h6v1.6h-6V19Z" fill-rule="evenodd"/></svg>Résumé (PDF)</span>
+
+<div id="work-pawguard" class="cover"><img src="/dt-portfolio/public/work/pawguard-2x.webp" alt=""></div>
+<div id="work-lead-finder" class="cover"><img src="/dt-portfolio/public/work/lead-finder.webp" alt="" style="object-position: left"></div>
+<div id="work-aegeon" class="cover"><img src="/dt-portfolio/public/work/aegeon.webp" alt=""></div>
+<div id="work-ego-distillers" class="cover"><img src="/dt-portfolio/public/work/ego-distillers.webp" alt=""></div>
+<div id="work-career-ops" class="cover band-blue note">
+  <p class="statement">Personal tool, runs locally</p>
+  <span class="pill ink mono">Walkthrough on request</span>
+</div>
+<div id="work-te-learning-center" class="cover"><img src="/dt-portfolio/public/work/te-learning-center.webp" alt=""></div>
+<div id="work-kryotera" class="cover"><img src="/dt-portfolio/public/work/kryotera.webp" alt=""></div>
+<div id="work-more" class="cover note">
+  <span class="dt">DT<i>.</i></span>
+  <p class="mono">All case studies<br><b>dtsiakmakis.dev ↗</b></p>
+</div>
+
+<div id="stack" class="band-blue">
+  <p class="label mono" style="margin:0">Stack</p>
+  <h2>The tools, plainly.</h2>
+  <ul>
+    <li class="mono"><svg data-icon="typescript"></svg>TypeScript</li>
+    <li class="mono"><svg data-icon="react"></svg>React</li>
+    <li class="mono"><svg data-icon="nextdotjs"></svg>Next.js</li>
+    <li class="mono"><svg data-icon="expo"></svg>React Native</li>
+    <li class="mono"><svg data-icon="supabase"></svg>Supabase</li>
+    <li class="mono"><svg data-icon="payloadcms"></svg>Payload</li>
+    <li class="mono"><svg data-icon="claude"></svg>Claude Code</li>
+    <li class="mono"><svg data-icon="googlegemini"></svg>Gemini API</li>
+    <li class="mono"><svg data-icon="modelcontextprotocol"></svg>MCP</li>
+    <li class="mono"><svg data-icon="tailwindcss"></svg>Tailwind</li>
+    <li class="mono"><svg data-icon="gsap"></svg>GSAP</li>
+    <li class="mono"><svg data-icon="playwright"></svg>Playwright</li>
+  </ul>
+</div>
+
+<script>
+  // Inline each simple-icons path so it takes the surrounding fill.
+  window.iconsReady = Promise.all([...document.querySelectorAll("svg[data-icon]")].map(async (svg) => {
+    const text = await (await fetch(`icons/${svg.dataset.icon}.svg`)).text();
+    const doc = new DOMParser().parseFromString(text, "image/svg+xml").documentElement;
+    svg.setAttribute("viewBox", doc.getAttribute("viewBox"));
+    svg.innerHTML = [...doc.querySelectorAll("path")].map((p) => p.outerHTML).join("");
+  })).then(() => document.fonts.ready).then(() => {
+    // Whole-pixel boxes, so captures have no half-transparent edge rows.
+    for (const el of document.querySelectorAll("body > [id]")) {
+      const { width, height } = el.getBoundingClientRect();
+      el.style.width = `${Math.ceil(width)}px`;
+      el.style.height = `${Math.ceil(height)}px`;
+    }
+  });
+</script>
+</body>
+</html>
